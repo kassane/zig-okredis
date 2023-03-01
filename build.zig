@@ -3,10 +3,21 @@ const builtin = @import("builtin");
 const Builder = std.build.Builder;
 
 pub fn build(b: *Builder) void {
-    const mode = b.standardReleaseOptions();
+    const target = b.standardTargetOptions(.{});
+    const optimize = b.standardOptimizeOption(.{});
+    
+    const module = b.addModule(.{
+        .name = "okredis",
+        .source_file = .{ .path = "src/okredis.zig" },
+    });
 
-    const tests = b.addTest("src/okredis.zig");
-    tests.setBuildMode(mode);
+    _ = module;
+
+    const tests = b.addTest(.{
+        .root_source_file = .{ .path = "src/okredis.zig" },
+        .target = target,
+        .optimize = optimize,
+    });
     tests.setNamePrefix("debug test");
 
     const test_step = b.step("test", "Run all tests in debug mode.");
