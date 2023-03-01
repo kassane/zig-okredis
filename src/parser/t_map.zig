@@ -55,7 +55,7 @@ pub const MapParser = struct {
         // TODO: write real implementation
         var buf: [100]u8 = undefined;
         var end: usize = 0;
-        for (buf) |*elem, i| {
+        for (buf, 0..) |*elem, i| {
             const ch = try msg.readByte();
             elem.* = ch;
             if (ch == '\r') {
@@ -178,7 +178,7 @@ pub const MapParser = struct {
                 comptime var max_len = 0;
                 comptime var fieldNames: [stc.fields.len][]const u8 = undefined;
                 comptime {
-                    for (stc.fields) |f, i| {
+                    for (stc.fields, 0..) |f, i| {
                         if (f.name.len > max_len) max_len = f.name.len;
                         fieldNames[i] = f.name;
                     }

@@ -197,5 +197,3 @@ pub const CommandSerializer = struct {
         }
     }
 };
-
-

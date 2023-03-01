@@ -19,7 +19,7 @@ const inf = math.inf;
 const nan = math.nan;
 const warn = std.debug.warn;
 
-fn toDigit(ch: u8) callconv(.Inline) !u8 {
+inline fn toDigit(ch: u8) !u8 {
     if (ch >= '0' and ch <= '9') return ch - '0';
     return error.InvalidCharacter;
 }
@@ -43,7 +43,7 @@ fn parseFloat(comptime T: type, slice: []const u8) error{ Empty, InvalidCharacte
     var decimal_point_index: isize = -1;
     var decimal_places: usize = 0;
     var numeral_places: usize = 0;
-    for (s) |ch, i| {
+    for (s, 0..) |ch, i| {
         if (ch == '.') {
             decimal_point_index = @intCast(isize, i);
             continue;

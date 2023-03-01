@@ -5,7 +5,7 @@ const Builder = std.build.Builder;
 pub fn build(b: *Builder) void {
     const target = b.standardTargetOptions(.{});
     const optimize = b.standardOptimizeOption(.{});
-    
+
     const module = b.addModule(.{
         .name = "okredis",
         .source_file = .{ .path = "src/okredis.zig" },
